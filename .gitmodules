@@ -1,0 +1,9 @@
+[submodule "submodules/encounter_tools"]
+	path = submodules/encounter_tools
+	url = https://boyou_zhou@bitbucket.org/boyou_zhou/cds-msim-cosim.git
+[submodule "submodules/lef_reformatting"]
+	path = submodules/lef_reformatting
+	url = https://github.com/byzhou/HT_AES_DEF_ext.git
+[submodule "submodules/matlab_imaging"]
+	path = submodules/matlab_imaging
+	url = https://boyou_zhou@bitbucket.org/boyou_zhou/debug_by_ronen.git
