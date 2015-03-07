@@ -7,3 +7,6 @@
 [submodule "submodules/matlab_imaging"]
 	path = submodules/matlab_imaging
 	url = https://boyou_zhou@bitbucket.org/boyou_zhou/debug_by_ronen.git
+[submodule "submodules/verilog_sim"]
+	path = submodules/verilog_sim
+	url = https://byzhou@github.com/byzhou/verilog_sim.git
