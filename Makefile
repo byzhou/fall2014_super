@@ -11,33 +11,47 @@ endPoint		:= 100
 stepSize		:= 10 
 
 all: matlab 
+
 tmp:
 	tar -cvf gds.tar $(enc-build)/enc-par/current/*.gds
+
 encounter:
 	cd $(enc-build);\
 	make enc-par;\
 	cd -;
-	tar -cvf gds.tar $(enc-build)/enc-par/current/*.gds
+	tar -cvf gds.tar $(enc-build)/enc-par/current/*.gds $(enc-build)/enc-par/current/*.map 
 
-perl: encounter
-	cp $(enc-build)/enc-par/current/*.def $(perl-build)/;\
+perl: 
+	cp $(enc-build)/enc-par/current/*.def $(perl-build)/def;\
 	cd $(perl-build);\
 	rm -rf $(perl-build)/txt/*.txt;\
 	pwd;\
 	./ext.pl $(startPoint) $(endPoint) $(stepSize) TjIn-Tj;\
 	./ext.pl $(startPoint) $(endPoint) $(stepSize) TjIn;\
+	./shi_ext.pl $(startPoint) $(endPoint) $(stepSize) TjIn-Tj;\
+	./shi_ext.pl $(startPoint) $(endPoint) $(stepSize) TjIn;\
 	cd -;
 	tar -cvf txt.tar $(perl-build)/txt;\
 
-matlab: perl
+rep:
+	cd $(perl-build);\
+	pwd;\
+	./rep.pl;\
+	cd -
+
+matlab: 
 	rm -rf $(matlab-build)/txt/Tj*.txt;\
+	rm -rf $(matlab-build)/shi/Tj*.txt;\
 	rm -rf $(matlab-build)/Tj*.mat;\
-	rm -rf $(matlab-build)/eps/*.eps;\
+	rm -rf $(matlab-build)/HT*.mat;\
+	rm -rf $(matlab-build)/pdf/*.pdf;\
 	cp $(perl-build)/txt/Tj*.txt $(matlab-build)/txt/.;\
+	cp $(perl-build)/shi/Tj*.txt $(matlab-build)/shi/.;\
 	cd submodules/matlab_imaging/;\
-	matlab -nodisplay -nosplash -r "top;quit;";\
+	matlab -nodisplay -nosplash -r "top;quit" ;\
 	cd -;
-	tar -cvf eps.tar $(matlab-build)/eps;\
+	tar -cvf pdf.tar $(matlab-build)/pdf;\
+	tar -cvf shi-pdf.tar $(matlab-build)/shi-pdf;\
 
 clean:
 	cd $(enc-build);\
